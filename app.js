@@ -12,8 +12,8 @@ var app = express();
 //-------------------------------------------------------
 //WS
 var user=require('./ws/userWS');
-var produit=require('./ws/productWS');
-
+var etab= require('./ws/etablissementsWS');
+var produit = require('./ws/produitWS');
 
 //-------------------------------------------------------
 //-------------------------------------------------------
@@ -34,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/user', user);
 app.use('/produit', produit);
+app.use('/etab', etab);
 
 
 //-------------------------------------------------------
@@ -60,9 +61,10 @@ app.use(function(req, res, next){
 		host     : 'localhost',
 		user     : 'root',
 		password : '',
-		database : 'myNode'
+		database : 'pidev'
 	});
 	res.locals.connect();
+	console.log("Connected");
 	next();
 });
 module.exports = app;
