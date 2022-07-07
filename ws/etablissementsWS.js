@@ -25,7 +25,7 @@ function getConnection(){
 
 //GET
 //get all etablissements 
-router.get("/showAll", (req, res) => {
+router.post("/showAll", (req, res) => {
     pool.query("SELECT * FROM etablissements", (err, user_rows, fields) => {
         res.status(200)
         res.json(user_rows)
@@ -37,11 +37,11 @@ router.get("/showAll", (req, res) => {
 
 //POST
 //Create etablissements
-router.post("/add", (req, res) => {
+router.post("/add/:name/:adresse/:type", (req, res) => {
     pool.query("INSERT INTO etablissements (`name`, `adresse`, `type`) VALUES (?, ?, ?)", [        
-        req.body.name,
-        req.body.adresse,
-        req.body.type
+        req.params.name,
+        req.params.adresse,
+        req.params.type
      ], (err, rows, fields) => {
             console.log(err);
             res.status(200);
@@ -51,12 +51,12 @@ router.post("/add", (req, res) => {
 
 //PUT
 //Edit etablissements
-router.put("/edit", (req, res) => {
+router.post("/edit/:id/:name/:adresse/:type", (req, res) => {
     pool.query("UPDATE etablissements SET name=?,adresse=?,type=? WHERE id=?", [        
-        req.body.name,
-        req.body.adresse,
-        req.body.type,
-        req.body.id
+        req.params.name,
+        req.params.adresse,
+        req.params.type,
+        req.params.id
      ], (err, rows, fields) => {
             console.log(err);
             res.status(200);
@@ -66,9 +66,9 @@ router.put("/edit", (req, res) => {
 })
 //delete
 //delete etablissements
-router.delete("/delete", (req, res) => {
+router.post("/delete/:id", (req, res) => {
     pool.query("delete from etablissements WHERE id =?", [        
-        req.body.id
+        req.params.id
      ], (err, rows, fields) => {
             console.log(err);
             res.status(200);
