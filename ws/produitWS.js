@@ -25,7 +25,7 @@ function getConnection(){
 
 //GET
 //get all produit 
-router.get("/showAll", (req, res) => {
+router.post("/showAll", (req, res) => {
     pool.query("SELECT * FROM produit", (err, user_rows, fields) => {
         res.status(200)
         res.json(user_rows)
@@ -37,12 +37,12 @@ router.get("/showAll", (req, res) => {
 
 //POST
 //Create produit
-router.post("/add", (req, res) => {
+router.post("/add/:Nom/:id_physique_img/:qte/:id_etab", (req, res) => {
     pool.query("INSERT INTO `produit`(`Nom`,`id_physique_img`,`qte`,`id_etab`) VALUES (?,?,?,?)", [        
-        req.body.Nom,
-        req.body.id_physique_img,
-        req.body.qte,
-        req.body.id_etab
+        req.params.Nom,
+        req.params.id_physique_img,
+        req.params.qte,
+        req.params.id_etab
      ], (err, rows, fields) => {
             console.log(err);
             res.status(200);
@@ -52,13 +52,13 @@ router.post("/add", (req, res) => {
 
 //PUT
 //Edit produit
-router.put("/edit", (req, res) => {
+router.post("/edit/:id/:Nom/:id_physique_img/:qte/:id_etab", (req, res) => {
     pool.query("UPDATE produit SET Nom=?,id_physique_img=?,qte=?,id_etab=? WHERE id=?", [        
-        req.body.Nom,
-        req.body.id_physique_img,
-        req.body.qte,
-        req.body.id_etab,
-        req.body.id
+        req.params.Nom,
+        req.params.id_physique_img,
+        req.params.qte,
+        req.params.id_etab,
+        req.params.id
      ], (err, rows, fields) => {
             console.log(err);
             res.status(200);
@@ -68,9 +68,9 @@ router.put("/edit", (req, res) => {
 })
 //delete
 //delete produit
-router.delete("/delete", (req, res) => {
+router.post("/delete/:id", (req, res) => {
     pool.query("delete from produit WHERE id =?", [        
-        req.body.id
+        req.params.id
      ], (err, rows, fields) => {
             console.log(err);
             res.status(200);
