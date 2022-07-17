@@ -11,10 +11,12 @@ var app = express();
 //-------------------------------------------------------
 //-------------------------------------------------------
 //WS
-//var user=require('./ws/userWS');
+var user=require('./ws/userWS');
 var etab= require('./ws/etablissementsWS');
 var produit = require('./ws/produitWS');
 var panier =require('./ws/PanierWS')
+var fichier=require('./ws/fichierWS');
+
 
 //-------------------------------------------------------
 //-------------------------------------------------------
@@ -33,11 +35,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 //-------------------------------------------------------
 //ROUTER
 app.use('/', indexRouter);
-//app.use('/user', user);
+app.use('/user', user);
 app.use('/produit', produit);
 app.use('/etab', etab);
 app.use('/panier', panier);
-
+app.use('/fichier', fichier);
 
 //-------------------------------------------------------
 //-------------------------------------------------------
