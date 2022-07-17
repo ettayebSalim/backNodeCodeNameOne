@@ -14,6 +14,9 @@ var app = express();
 var user=require('./ws/userWS');
 var etab= require('./ws/etablissementsWS');
 var produit = require('./ws/produitWS');
+var fichier=require('./ws/fichierWS');
+
+
 
 //-------------------------------------------------------
 //-------------------------------------------------------
@@ -35,7 +38,7 @@ app.use('/', indexRouter);
 app.use('/user', user);
 app.use('/produit', produit);
 app.use('/etab', etab);
-
+app.use('/fichier', fichier);
 
 //-------------------------------------------------------
 //-------------------------------------------------------
